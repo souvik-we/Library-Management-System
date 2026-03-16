@@ -4,7 +4,7 @@ function Sidebar2()
 {
     return(
         <>
-        <h1>Sidebar</h1>
+        <h1>Sidebar </h1>
         </>
     )
 }
