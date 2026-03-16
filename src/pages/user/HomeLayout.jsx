@@ -1,9 +1,10 @@
 import React from 'react'
 import Layout from '../../components/layout/Layout'
+import Sidebar2 from "../../components/ui/Sidebar2.jsx"
 function HomeLayout() {
   return (
     <Layout>
-        <h1 className='text-red-900s'>home layout</h1>
+        <Sidebar2/>
     </Layout>
   )
 }
