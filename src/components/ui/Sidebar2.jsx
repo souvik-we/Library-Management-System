@@ -1,7 +1,14 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { act } from "react";
+import { NavLink } from "react-router-dom";
 function Sidebar2()
 {
+
+
+  const [active , isActive]=useState("dashboard");
+
+
+  
     return(
         <div className="w-64 h-screen bg-gray border-r p-5">
 
@@ -18,23 +25,38 @@ function Sidebar2()
 
     
       <ul className="space-y-4 text-gray-700">
-
-        <li className="flex items-center gap-3 p-3 rounded-md bg-blue-100 text-green-00 cursor-pointer">
+      
+<NavLink to="/" >
+ <li 
+        onClick={()=>isActive("dashboard")}
+        className={`flex items-center gap-3 p-3 rounded-md hover:bg-blue-100 text-green-00 cursor-pointer ${active==="dashboard"?"bg-blue-100":""} `}>
           📊 Dashboard
         </li>
+</NavLink>
+       
 
-        <li className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-100 cursor-pointer">
+<NavLink to="/books">
+     <li 
+        onClick={()=>isActive("browse Books")}
+        className={`flex items-center gap-3 p-3 rounded-md hover:bg-blue-100 text-green-00 cursor-pointer ${active==="browse Books"?"bg-blue-100":""} `}>
           🔍 Browse Books
         </li>
+</NavLink >
 
-        <li className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-100 cursor-pointer">
+<NavLink to="/new">
+          <li 
+        onClick={()=>isActive("my Books")}
+        className={`flex items-center gap-3 p-3 rounded-md hover:bg-blue-100 text-green-00 cursor-pointer ${active==="my Books"?"bg-blue-100":""} `}>
            📖My Books
-        </li>
-
-        <li className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-100 cursor-pointer">
+        </li>        
+</NavLink>
+<NavLink to="/History"> 
+      <li 
+        onClick={()=>isActive("history")}
+        className={`flex items-center gap-3 p-3 rounded-md hover:bg-blue-100 text-green-00 cursor-pointer ${active==="history"?"bg-blue-100":""} `}>
           ⏰ History
         </li>
-
+</NavLink>
       </ul>
 
     </div>

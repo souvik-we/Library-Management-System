@@ -16,6 +16,9 @@ import ReturnBook from "./pages/dashboard/ReturnBook.jsx";
 import HomeLayout from "./pages/user/HomeLayout.jsx";
 import Home from "./pages/user/Home.jsx";
 import Login from "./pages/user/Login.jsx";
+import UserBooks from "./pages/user/UserBooks.jsx";
+import NewBooks from "./pages/user/NewBooks.jsx";
+import UserHistory from "./pages/user/UserHistory.jsx";
 import DashboardLayouts from "./pages/dashboard/DashboardLayouts.jsx";
 const router = createBrowserRouter([
  {
@@ -30,6 +33,21 @@ const router = createBrowserRouter([
     {
       path:"/login",
       element:<Login/>
+    }
+    ,
+    {
+      path:"/books",
+      element:<UserBooks />
+    }
+    ,
+    {
+      path:"/New",
+      element:<NewBooks/>
+    }
+    ,
+    {
+      path:"/History",
+      element:<UserHistory/>
     }
   ]
  },
