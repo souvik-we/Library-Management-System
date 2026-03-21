@@ -25,7 +25,7 @@
    });
 
   return (
-    <div className="flex min-h-screen bg-gray-50 text-slate-700">
+    <div className="flex min-h-screen bg-gray-100 text-slate-700">
       {/* Main Content Area */}
       <main className="flex-1 p-6 md:p-10">
         <header className="mb-10">
