@@ -28,15 +28,15 @@ function Sidebar()
               <div className="w-full h-11/12  ">
              
              <div className="w-full h-auto mt-10">
-                <button className="w-full h-12 hover:border  hover:border-gray-100 flex justify-around items-center gap-7 text-black text-lg rounded-md hover:bg-blue-400">
+                <button  className="w-full  h-12 hover:border  hover:border-gray-100 flex justify-around items-center gap-7 text-black text-lg rounded-md active:bg-blue-400">
                     <span><FaBookOpen/></span> <span className="font-medium tracking-wide">Dashboard</span>
                 </button>
 
-                <button className="w-full h-12 hover:border  hover:border-gray-100 flex justify-around items-center gap-7 text-black text-lg rounded-md hover:bg-blue-400">
+                <button className="w-full h-12 hover:border  hover:border-gray-100 flex justify-around items-center gap-7 text-black text-lg rounded-md active:bg-blue-400">
                     <span><FaBookOpen/></span> <span className="font-medium tracking-wide">Members</span>
                 </button>
 
-                <button className="w-full h-12 hover:border  hover:border-gray-100 flex justify-around items-center gap-7 text-black text-lg rounded-md hover:bg-blue-400">
+                <button className="w-full h-12 hover:border  hover:border-gray-100 flex justify-around items-center gap-7 text-black text-lg rounded-md active:bg-blue-400">
                     <span><FaBookOpen/></span> <span className="font-medium tracking-wide">Books</span>
                 </button>
 
