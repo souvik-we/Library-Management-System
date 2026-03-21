@@ -18,7 +18,7 @@
    ];
 
    const filteredBooks = books.filter(book => {
-    const matchesSearch = book.title.toLowerCase().includes(searcjsxhTerm.toLowerCase()) || 
+    const matchesSearch = book.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                            book.author.toLowerCase().includes(searchTerm.toLowerCase());
      const matchesCategory = activeCategory === "All" || book.category === activeCategory;
      return matchesSearch && matchesCategory;
@@ -68,7 +68,7 @@
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {filteredBooks.map(book => (
-            <div key={book.id} className="group bg-white rounded-[2rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+            <div key={book.id} className="group bg-white rounded-md border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
               <div className={`relative h-52 ${book.color} flex items-center justify-center text-white/80`}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                 {book.status && (
