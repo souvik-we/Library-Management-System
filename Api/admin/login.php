@@ -1,40 +1,38 @@
 <?php
-
+include '../config/db.php';
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
 
-include '../config/db.php';
-
-// Get JSON input
 $data = json_decode(file_get_contents("php://input"), true);
 
-$roll = $data['roll_number'];
+$phone = $data['phone'];
 $password = $data['password'];
 
-// Check user
-$sql = "SELECT * FROM students WHERE roll_number='$roll'";
-$result = mysqli_query($conn, $sql);
+$stmt = $conn->prepare("SELECT * FROM staff WHERE phone = ?");
+$stmt->bind_param("s", $phone);
+$stmt->execute();
+$result = $stmt->get_result();
 
-if (mysqli_num_rows($result) > 0) {
+if ($result->num_rows > 0) {
 
-    $row = mysqli_fetch_assoc($result);
+    $row = $result->fetch_assoc();
 
+    // 🔐 Verify hashed password
     if (password_verify($password, $row['password'])) {
 
         echo json_encode([
             "status" => "success",
-            "message" => "Login successful",
             "user" => [
-                "roll_number" => $row['roll_number'],
-                "name"=>$row['name'],
-                "isLoggedIn"=> true,
+                "name" => $row['name'],
+                "phone" => $row['phone'],
+                "role" => $row['role'],
+                "isLoggedIn"=>true,
             ]
         ]);
 
     } else {
-
         echo json_encode([
             "status" => "error",
             "message" => "Wrong password"
@@ -42,7 +40,6 @@ if (mysqli_num_rows($result) > 0) {
     }
 
 } else {
-
     echo json_encode([
         "status" => "error",
         "message" => "User not found"

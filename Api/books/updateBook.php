@@ -10,7 +10,6 @@ $data = json_decode(file_get_contents("php://input"), true);
 $isbn = $data['isbn'];
 $title = $data['title'];
 
-$data = json_decode(file_get_contents("php://input"), true);
 
 $title = $data['title'] ?? '';
 $author = $data['author'] ?? '';

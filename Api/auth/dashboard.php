@@ -13,7 +13,7 @@ $available = $conn->query("SELECT IFNULL(SUM(available),0) as available FROM boo
 $students = $conn->query("SELECT COUNT(*) as total FROM students")->fetch_assoc();
 $active = $conn->query("SELECT COUNT(*) as total FROM issue_books WHERE status='issued'")->fetch_assoc();
 $returned = $conn->query("SELECT COUNT(*) as total FROM issue_books WHERE status='returned'")->fetch_assoc();
-$name = $conn->query("SELECT name FROM students")->fetch_assoc();
+
 
 echo json_encode([
     "total_books" => (int)$total['total'],
@@ -21,7 +21,7 @@ echo json_encode([
     "students" => (int)$students['total'],
     "active" => (int)$active['total'],
     "returned" => (int)$returned['total'],
-    "name"=>$name['name']
+    
 ]);
 } catch (Exception $e) {
     echo json_encode([

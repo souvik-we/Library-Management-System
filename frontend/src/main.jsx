@@ -25,9 +25,12 @@ import Members from "./pages/dashboard/Members.jsx";
 import Reports from "./pages/dashboard/Reports.jsx";
 import ReturnBook from "./pages/dashboard/ReturnBook.jsx";
 import History from "./pages/dashboard/History.jsx";
-
+import Staff from "./pages/dashboard/Staff.jsx";
 import DashboardLayouts from "./pages/dashboard/DashboardLayouts.jsx";
 
+
+import UserAuthCheck from './middleware/UserAuthCheck.jsx'
+import AdminAuthCheck from "./middleware/AdminAuthCheck.jsx";
 const router = createBrowserRouter([
   
   // 🔥 MAIN LANDING PAGE
@@ -47,24 +50,30 @@ const router = createBrowserRouter([
     children: [
       {
         path: "home",
-        element: <Home />,
+        element: 
+        <UserAuthCheck>
+          <Home />
+        </UserAuthCheck>
+        ,
       },
       
       {
         path: "books",
-        element: <UserBooks />,
+        element: <UserAuthCheck><UserBooks /></UserAuthCheck>,
       },
       {
         path: "my-books",
-        element: <NewBooks />,
+        element: <UserAuthCheck><NewBooks /></UserAuthCheck>,
       },
       {
         path: "history",
-        element: <UserHistory />,
+        element: <UserAuthCheck><UserHistory /></UserAuthCheck>,
       },
       {
         path:"profile",
-        element:<UserProfile/>
+        element:
+        <UserAuthCheck><UserProfile/></UserAuthCheck>,
+        
       }
     ],
   },
@@ -72,7 +81,11 @@ const router = createBrowserRouter([
   // 🔥 ADMIN DASHBOARD
   {
     path: "/dashboard",
-    element: <DashboardLayouts />,
+    element: 
+    <AdminAuthCheck>
+       <DashboardLayouts />
+    </AdminAuthCheck>
+   ,
     children: [
       {
         index: true, // default /dashboard
@@ -85,6 +98,10 @@ const router = createBrowserRouter([
       {
         path: "members",
         element: <Members />,
+      },
+      {
+        path:"staff",
+        element:<Staff/>
       },
       {
         path: "add-book",

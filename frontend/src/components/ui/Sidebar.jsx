@@ -59,6 +59,16 @@ console.log(isLoggedIn)
           </li>
         </NavLink>
 
+       <NavLink to="/dashboard/staff">
+          <li
+            onClick={() => setActive("manage staff")}
+            className={`flex items-center gap-3 p-3 rounded-md hover:bg-blue-100 cursor-pointer ${
+              active === "manage staff" ? "bg-blue-100" : ""
+            }`}
+          >
+            📖 Manage Staff
+          </li>
+        </NavLink>
         <NavLink to="/dashboard/reports">
           <li
             onClick={() => setActive("requests")}
