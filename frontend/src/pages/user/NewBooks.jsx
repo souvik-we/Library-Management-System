@@ -53,12 +53,14 @@ function NewBooks() {
   // ✅ Categorize Requests (Optimized)
   const { approved, pending, rejected } = useMemo(() => {
     return {
-      approved: requests.filter((r) => r.status === "approved"),
+      approved: requests.filter((r) => r.status === "approved" && r.return_status !== 'return'),
       pending: requests.filter((r) => r.status === "pending"),
       rejected: requests.filter((r) => r.status === "reject"),
     };
   }, [requests]);
 
+
+  console.log(approved ,"-----------------------");
   // ✅ Correct Overdue Calculation
   const getOverdueDays = (due_date) => {
     if (!due_date) return 0;
@@ -128,7 +130,7 @@ function NewBooks() {
                 </div>
 
                 {/* Return Button */}
-                {book.return_status === "none" && (
+                {book.return_status === "not return" && (
                   <button
                     onClick={() =>
                       handleReturnRequest(book.issue_id)
@@ -141,7 +143,7 @@ function NewBooks() {
 
                 {book.return_status === "pending" && (
                   <button className="bg-gray-400 text-white px-4 py-2 rounded-md cursor-not-allowed">
-                    Pending
+                    Return Pending
                   </button>
                 )}
               </div>

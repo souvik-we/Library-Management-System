@@ -20,6 +20,7 @@ export const getIssuedBooks = createAsyncThunk(
   }
 );
 
+
 // ✅ Get books by student
 export const getByStudent = createAsyncThunk(
   "issue/getByStudent",
@@ -105,6 +106,24 @@ export const updateRequest = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(
         error.response?.data || { message: "Update failed" }
+      );
+    }
+  }
+);
+
+export const approveReturn = createAsyncThunk(
+  "issue/approveReturn",
+  async (issue_id, thunkAPI) => {
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/approveReturn.php`,
+        { issue_id }
+      );
+
+      return { issue_id, ...res.data };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data || { message: "Approve return failed" }
       );
     }
   }
@@ -263,7 +282,44 @@ builder.addCase(updateRequest.rejected, (state, action) => {
   state.loading = false;
   state.error = action.payload?.message;
 });
+// ---------- APPROVE RETURN ----------
+builder.addCase(approveReturn.pending, (state) => {
+  state.loading = true;
+});
 
+builder.addCase(approveReturn.fulfilled, (state, action) => {
+  state.loading = false;
+
+  if (action.payload.status === "success") {
+    const { issue_id } = action.payload;
+
+    // 🔥 Update UI instantly
+    const index = state.issueBooks.findIndex(
+      (item) => item.issue_id === issue_id
+    );
+
+    if (index !== -1) {
+      state.issueBooks[index].return_status = "return";
+    }
+
+    // 🔥 Also update requests if present
+    const reqIndex = state.requests.findIndex(
+      (item) => item.issue_id === issue_id
+    );
+
+    if (reqIndex !== -1) {
+      state.requests[reqIndex].return_status = "return";
+    }
+
+  } else {
+    state.error = action.payload.message;
+  }
+});
+
+builder.addCase(approveReturn.rejected, (state, action) => {
+  state.loading = false;
+  state.error = action.payload?.message;
+});
   },
 });
 

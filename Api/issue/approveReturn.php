@@ -35,7 +35,7 @@ $isbn = $row['isbn'];
 // Mark returned
 $conn->query("
 UPDATE issue_books 
-SET return_status='returned' 
+SET return_status='return' 
 WHERE issue_id='$id'
 ");
 

@@ -3,7 +3,7 @@ import { FaRegClock, FaCheck } from "react-icons/fa";
 import { LuBookOpen } from "react-icons/lu";
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
-import { getRequests, updateRequest } from "../../features/issue/issueSlice";
+import { getRequests, updateRequest, approveReturn } from "../../features/issue/issueSlice";
 import { getUsers } from "../../features/auth/authSlice";
 import { getBooks } from "../../features/book/bookSlice";
 
@@ -30,6 +30,10 @@ function Reports() {
     dispatch(updateRequest({ issue_id: id, action: "reject" }));
   };
 
+ const handleApproveReturn = (id) => {
+  dispatch(approveReturn(id));
+};
+
   // 🔗 Merge Data
   const mergedData = useMemo(() => {
     return requests.map((item) => {
@@ -55,12 +59,16 @@ function Reports() {
     (item) => item.status === "pending"
   );
 
+  const returnRed = mergedData.filter(
+    (item)=>item.return_status ==='pending'
+  )
+
   const activeLoans = mergedData.filter(
     (item) =>
       item.status === "approved" &&
       item.return_status !== "returned"
   );
-
+ 
   const overdueLoans = mergedData.filter((item) => {
     const today = new Date();
     const dueDate = new Date(item.due_date + "T00:00:00");
@@ -127,6 +135,59 @@ function Reports() {
                   >
                     <RxCross2 /> Reject
                   </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+        {/* 🟡 return  Requests */}
+      <div>
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-3 h-3 bg-amber-400 rounded-full animate-pulse" />
+          <h3 className="text-lg font-bold">
+            Return Requests ({returnRed.length})
+          </h3>
+        </div>
+
+        {returnRed.length === 0 ? (
+          <div className="bg-white p-6 text-center rounded-xl">
+            <FaRegClock className="mx-auto mb-2 text-gray-300" />
+            <p>No pending requests</p>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {returnRed.map((record) => (
+              <div
+                key={record.issue_id}
+                className="bg-white p-4 rounded-xl shadow-sm flex justify-between items-center"
+              >
+                <div>
+                  <h4 className="font-semibold">{record.title}</h4>
+                  <p className="text-sm text-gray-500">{record.author}</p>
+
+                  <div className="text-xs flex gap-4 mt-2">
+                    <span>
+                      Student: {record.studentInfo?.name}
+                    </span>
+                    <span>
+                      {record.issue_date} → {record.due_date}
+                    </span>
+                    <span className="text-green-600">
+                      Stock: {record.available}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleApproveReturn(record.issue_id)}
+                    className="bg-green-600 text-white px-3 py-1 rounded flex items-center gap-1"
+                  >
+                    <FaCheck /> Approve
+                  </button>
+
+                  
                 </div>
               </div>
             ))}

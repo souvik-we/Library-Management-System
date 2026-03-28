@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 function AdminAuthCheck({ children }) {
-  const storedStaff = localStorage.getItem("staff");
+  const storedStaff = localStorage.getItem("staffUser");
 
   // ❌ No user
   if (!storedStaff) {
